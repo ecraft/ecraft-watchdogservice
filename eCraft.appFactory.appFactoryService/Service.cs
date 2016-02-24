@@ -30,6 +30,7 @@ namespace eCraft.appFactory.appFactoryService
         public void Run()
         {
             Logger.Log("appFactory service starting");
+            Logger.DeleteOldLogs();
             applications = ConfigParser.GetApplicationsToStart();
             applications.ForEach(StartApplication);
         }

@@ -6,6 +6,8 @@ namespace eCraft.appFactory.appFactoryService
 {
     static class Logger
     {
+        const int DaysToKeepLogs = 60;
+
         public static void Log(string message)
         {
             var logName = String.Format("{0}{1}-{2}.log", GetLogFolder(), "service",
@@ -51,6 +53,37 @@ namespace eCraft.appFactory.appFactoryService
                 fs.WriteLine(output);
                 Trace.WriteLine(output);
             }
+        }
+
+        public static void DeleteOldLogs()
+        {
+            Log(String.Format("Removing logs older than {0} days.", DaysToKeepLogs));
+
+            var cutoffTime = DateTime.Now.AddDays(-DaysToKeepLogs);
+            var filesDeleted = 0;
+
+            var files = GetLogFiles();
+
+            foreach (var file in files)
+            {
+                var fileInfo = new FileInfo(file);
+
+                if (fileInfo.CreationTime < cutoffTime)
+                {
+                    fileInfo.Delete();
+                    filesDeleted++;
+                }
+            }
+
+            Log(String.Format("Removed {0} files.", filesDeleted));
+        }
+
+        private static string[] GetLogFiles()
+        {
+            var logpath = GetLogFolder();
+            var fileMask = "service-*.log";
+            var files = Directory.GetFiles(logpath, fileMask);
+            return files;
         }
     }
 }
