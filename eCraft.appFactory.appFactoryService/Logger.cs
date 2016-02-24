@@ -61,7 +61,6 @@ namespace eCraft.appFactory.appFactoryService
 
             var cutoffTime = DateTime.Now.AddDays(-DaysToKeepLogs);
             var filesDeleted = 0;
-
             var files = GetLogFiles();
 
             foreach (var file in files)
@@ -70,8 +69,15 @@ namespace eCraft.appFactory.appFactoryService
 
                 if (fileInfo.CreationTime < cutoffTime)
                 {
-                    fileInfo.Delete();
-                    filesDeleted++;
+                    try
+                    {
+                        fileInfo.Delete();
+                        filesDeleted++;
+                    }
+                    catch (Exception exc)
+                    {
+                        Log(String.Format("Error deleting {0}.\n{1}", file, exc));
+                    }
                 }
             }
 
