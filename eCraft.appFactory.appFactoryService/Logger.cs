@@ -87,8 +87,7 @@ namespace eCraft.appFactory.appFactoryService
         private static string[] GetLogFiles()
         {
             var logpath = GetLogFolder();
-            var fileMask = "service-*.log";
-            var files = Directory.GetFiles(logpath, fileMask);
+            var files = Directory.GetFiles(logpath);
             return files;
         }
     }
