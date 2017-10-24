@@ -23,7 +23,7 @@ namespace eCraft.appFactory.appFactoryService
 
         public Service()
         {
-            InitializeComponent();
+            ServiceName = "Service";
             processes = new List<Process>();
         }
 

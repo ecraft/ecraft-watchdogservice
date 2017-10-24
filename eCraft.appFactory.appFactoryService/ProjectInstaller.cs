@@ -2,12 +2,16 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Configuration.Install;
+using System.ServiceProcess;
 
 namespace eCraft.appFactory.appFactoryService
 {
     [RunInstaller(true)]
-    public partial class ProjectInstaller : Installer
+    public class ProjectInstaller : Installer
     {
+        private ServiceProcessInstaller serviceProcessInstaller;
+        private ServiceInstaller serviceInstaller;
+
         public ProjectInstaller()
         {
             InitializeComponent();
@@ -38,6 +42,36 @@ namespace eCraft.appFactory.appFactoryService
 
             serviceInstaller.ServiceName += "_" + environment;
             serviceInstaller.DisplayName += String.Format(" ({0})", environment);
+        }
+
+        private void InitializeComponent()
+        {
+            serviceProcessInstaller = new ServiceProcessInstaller();
+            serviceInstaller = new ServiceInstaller();
+
+            // 
+            // serviceProcessInstaller
+            // 
+            serviceProcessInstaller.Account = ServiceAccount.LocalSystem;
+            serviceProcessInstaller.Password = null;
+            serviceProcessInstaller.Username = null;
+
+            // 
+            // serviceInstaller
+            // 
+            serviceInstaller.Description = "eCraft Watchdog Service. This service ensures that all necessary processes " +
+                "are running";
+            serviceInstaller.DisplayName = "eCraft appFactory";
+            serviceInstaller.ServiceName = "appFactory";
+            serviceInstaller.StartType = ServiceStartMode.Automatic;
+
+            // 
+            // ProjectInstaller
+            // 
+            Installers.AddRange(new Installer[] {
+                serviceProcessInstaller,
+                serviceInstaller
+            });
         }
     }
 }
