@@ -12,12 +12,7 @@ namespace eCraft.appFactory.appFactoryService
         {
             var applications = new List<Application>();
             var dir = AppDomain.CurrentDomain.BaseDirectory;
-            var configPath = Path.GetFullPath(dir + "/run.config");
-
-            if (Debugger.IsAttached)
-            {
-                configPath = "service.config";
-            }
+            var configPath = Path.GetFullPath(dir + "/run_config.xml");
 
             Logger.Log(string.Format("Enumerating applications to start from the '{0}' file", configPath));
 
