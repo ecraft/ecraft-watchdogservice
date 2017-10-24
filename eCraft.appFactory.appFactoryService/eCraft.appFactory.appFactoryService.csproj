@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>eCraft.appFactory.appFactoryService</RootNamespace>
-    <AssemblyName>appfactoryservice</AssemblyName>
+    <AssemblyName>watchdogservice</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -84,9 +84,9 @@
     <Compile Include="ConfigParser.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="PlatformInfo.cs" />
-    <Compile Include="ProjectInstaller.cs"/>
+    <Compile Include="ProjectInstaller.cs" />
     <Compile Include="RestartTime.cs" />
-    <Compile Include="Service.cs"/>
+    <Compile Include="Service.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
