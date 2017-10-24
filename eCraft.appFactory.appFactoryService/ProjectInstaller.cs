@@ -49,25 +49,16 @@ namespace eCraft.appFactory.appFactoryService
             serviceProcessInstaller = new ServiceProcessInstaller();
             serviceInstaller = new ServiceInstaller();
 
-            // 
-            // serviceProcessInstaller
-            // 
             serviceProcessInstaller.Account = ServiceAccount.LocalSystem;
             serviceProcessInstaller.Password = null;
             serviceProcessInstaller.Username = null;
 
-            // 
-            // serviceInstaller
-            // 
             serviceInstaller.Description = "eCraft Watchdog Service. This service ensures that all necessary processes " +
                 "are running";
-            serviceInstaller.DisplayName = "eCraft appFactory";
-            serviceInstaller.ServiceName = "appFactory";
+            serviceInstaller.DisplayName = "eCraft Watchdog";
+            serviceInstaller.ServiceName = "ecraft_watchdog";
             serviceInstaller.StartType = ServiceStartMode.Automatic;
 
-            // 
-            // ProjectInstaller
-            // 
             Installers.AddRange(new Installer[] {
                 serviceProcessInstaller,
                 serviceInstaller
