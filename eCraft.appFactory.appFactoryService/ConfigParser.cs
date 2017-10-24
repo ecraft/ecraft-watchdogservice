@@ -10,11 +10,9 @@ namespace eCraft.appFactory.appFactoryService
     {
         public static List<Application> GetApplicationsToStart()
         {
-            var bits = PlatformInfo.GetPlatformInfo() == PlatformInfo.Platform.X86 ? "32" : "64";
-
             var applications = new List<Application>();
             var dir = AppDomain.CurrentDomain.BaseDirectory;
-            var configPath = Path.GetFullPath(dir + "..\\..\\config\\run.config-" + bits);
+            var configPath = Path.GetFullPath(dir + "/run.config");
 
             if (Debugger.IsAttached)
             {
@@ -41,7 +39,7 @@ namespace eCraft.appFactory.appFactoryService
                 };
 
                 var identifier = applicationElement.Attributes["Identifier"];
-                app.Identifier = (identifier == null ? null : identifier.Value);
+                app.Identifier = identifier?.Value;
 
                 XmlNodeList environmentVariableNodes = applicationElement.SelectNodes("EnvironmentVariable");
                 foreach (XmlNode environmentVariable in environmentVariableNodes)

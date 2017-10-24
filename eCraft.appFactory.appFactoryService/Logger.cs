@@ -41,7 +41,7 @@ namespace eCraft.appFactory.appFactoryService
             }
             else
             {
-                return AppDomain.CurrentDomain.BaseDirectory + "..\\..\\logs\\service\\";
+                return AppDomain.CurrentDomain.BaseDirectory + "../logs/";
             }
         }
 
