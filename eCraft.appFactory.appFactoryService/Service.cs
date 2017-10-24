@@ -29,10 +29,18 @@ namespace eCraft.appFactory.appFactoryService
 
         public void Run()
         {
-            Logger.Log("appFactory service starting");
-            Logger.DeleteOldLogs();
-            applications = ConfigParser.GetApplicationsToStart();
-            applications.ForEach(StartApplication);
+            try
+            {
+                Logger.Log("Watchdog service starting");
+                Logger.DeleteOldLogs();
+                applications = ConfigParser.GetApplicationsToStart();
+                applications.ForEach(StartApplication);
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.ToString());
+                throw;
+            }
         }
 
         protected override void OnStart(string[] args)
