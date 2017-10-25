@@ -205,7 +205,7 @@ namespace eCraft.appFactory.appFactoryService
                 }
 
                 var app = GetApplication(proc);
-                Logger.LogStandardOutput(Path.GetFileName(proc.StartInfo.FileName), proc.Id, app == null ? null : app.Identifier, e.Data);
+                Logger.LogStandardOutput(Path.GetFileName(proc.StartInfo.FileName), proc.Id, app?.Identifier, e.Data);
             }
         }
 
@@ -221,7 +221,7 @@ namespace eCraft.appFactory.appFactoryService
                 }
 
                 var app = GetApplication(proc);
-                Logger.LogStandardError(Path.GetFileName(proc.StartInfo.FileName), proc.Id, app == null ? null : app.Identifier, e.Data);
+                Logger.LogStandardError(Path.GetFileName(proc.StartInfo.FileName), proc.Id, app?.Identifier, e.Data);
             }
         }
 
