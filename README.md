@@ -32,4 +32,4 @@ If you used the `env` option above, the name is instead `ecraft_watchdog_<env>`.
 
 ## License
 
-MIT
+[MIT](LICENSE)
