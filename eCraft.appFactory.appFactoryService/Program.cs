@@ -78,10 +78,7 @@ namespace eCraft.appFactory.appFactoryService
             catch (InvalidOperationException ex)
             {
                 Console.WriteLine();
-                Console.WriteLine(
-                    "InvalidOperationException: This can be caused because the process is not running with elevated privileges. " +
-                    "Retry with an Administrator command prompt. Also, ensure that the service isn't already installed."
-                );
+                Console.WriteLine("InvalidOperationException: This can be caused when the service isn't already installed.");
                 Console.WriteLine();
                 Console.WriteLine(ex.ToString());
                 return -1;
@@ -119,10 +116,7 @@ namespace eCraft.appFactory.appFactoryService
             catch (InvalidOperationException ex)
             {
                 Console.WriteLine();
-                Console.WriteLine(
-                    "InvalidOperationException: This can be caused because the process is not running with elevated privileges. " +
-                    "Retry with an Administrator command prompt. Also, ensure that the service is actually installed."
-                );
+                Console.WriteLine("InvalidOperationException: This can be caused when the service is not previously installed.");
                 Console.WriteLine();
                 Console.WriteLine(ex.ToString());
                 return -1;
@@ -149,7 +143,6 @@ namespace eCraft.appFactory.appFactoryService
         {
             Console.WriteLine("Usage: appFactoryService /i[nstall] | /u[ninstall] [env]");
             Console.WriteLine("The env is an optional parameter which makes it possible to install multiple services on the same server.");
-            Console.WriteLine("Note: both the installation and the uninstallation requires elevated privileges, so they must run from an Administrator commmand prompt.");
         }
     }
 }
