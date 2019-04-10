@@ -9,6 +9,8 @@ namespace eCraft.appFactory.appFactoryService
         const int DaysToKeepLogs = 60;
         static object loggingLock = new object();
 
+        internal const string EventSourceName = "eCraft Watchdog Service";
+
         public static void Log(string message)
         {
             var logName = String.Format("{0}{1}-{2}.log", GetLogFolder(), "service",
@@ -61,13 +63,29 @@ namespace eCraft.appFactory.appFactoryService
             // to file sequentially, but I opted for this extremely simplistic approach for now.
             lock (loggingLock)
             {
-                using (var fs = File.AppendText(logFileName))
+                try
                 {
-                    var output = String.Format("{0} {1}", DateTime.UtcNow.ToString("o"), message);
-                    fs.WriteLine(output);
-                    Trace.WriteLine(output);
+                    using (var fs = File.AppendText(logFileName))
+                    {
+                        var output = String.Format("{0} {1}", DateTime.UtcNow.ToString("o"), message);
+                        fs.WriteLine(output);
+                        Trace.WriteLine(output);
+                    }
+                }
+                catch (Exception e)
+                {
+                    WriteEventLog(e);
                 }
             }
+        }
+
+        private static void WriteEventLog(Exception e)
+        {
+            if (!EventLog.SourceExists(EventSourceName))
+            {
+                EventLog.CreateEventSource(EventSourceName, "Application");
+            }
+            EventLog.WriteEntry(EventSourceName, "Error occurred (AppendToLog):" + e, EventLogEntryType.Error);
         }
 
         public static void DeleteOldLogs()
